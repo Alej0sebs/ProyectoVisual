@@ -8,34 +8,54 @@
 /* Reset básico */
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 body {
-  background: radial-gradient(circle at top, #ffffff 0%, #fbeaea 40%, #ffffff 100%);
+  background: linear-gradient(180deg, #ffe9e9 0%, #ffdada 100%);
   font-family: 'Segoe UI', Arial, sans-serif;
-  margin: 0;
+  margin: 0 !important;
+  padding: 0 !important;
   min-height: 100vh;
   color: #333;
+}
+
+/* Header */
+header {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  background: none;
+}
+
+header img {
+  width: 100%;
+  display: block;
+  margin: 0;
 }
 
 /* Page Wrapper */
 .page-wrapper {
   width: 100%;
-  margin: 1.5rem auto 2.5rem;
-  padding: 0 1rem 2rem;
-  max-width: 1200px;
+  padding: 0 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: calc(100vh - 200px);
 }
 
 /* Page Header */
 .page-header {
-  text-align: center;
-  margin-bottom: 1.5rem;
   width: 100%;
-  max-width: 1100px;
-  padding: 0 1rem;
+  text-align: center;
+  margin: 1.8rem 0 1.5rem;
+  padding: 0 20px;
 }
 
 .page-header-top {
@@ -84,7 +104,6 @@ body {
   border-radius: 14px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
   padding: 1.4rem 1.4rem 1.8rem;
-  border: 1px solid rgba(165, 0, 0, 0.10);
 }
 
 .panel-header {
