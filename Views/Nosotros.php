@@ -257,7 +257,7 @@ $rol     = $_SESSION['rol'] ?? '';
     $(document).ready(function () {
       modalUsuario = new bootstrap.Modal(document.getElementById('modalUsuario'));
 
-      if (ROL !== 'secretaria') {
+      if (ROL !== 'admin') {
         $('#btnNuevo, #btnEditar, #btnEliminar').hide();
       }
 

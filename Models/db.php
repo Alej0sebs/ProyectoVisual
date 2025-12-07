@@ -1,8 +1,8 @@
 <?php
 $host = 'localhost';
-$user = 'u843424720_cuarto';
-$pass = 'Papibsc123'; 
-$dbname = 'u843424720_cuarto2';
+$user = 'root';
+$pass = ''; 
+$dbname = 'cuarto2';
 try{
 $conn = new mysqli($host, $user, $pass, $dbname);
 }catch(Exception $e){  

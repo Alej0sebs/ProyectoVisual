@@ -340,7 +340,7 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
           </thead>
         </table>
 
-        <?php if ($rol === 'secretaria'): ?>
+        <?php if ($rol === 'admin'): ?>
           <div id="toolbar" style="padding:8px 0 0;">
             <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="false" onclick="newUser()">Nuevo</a>
             <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="false"
