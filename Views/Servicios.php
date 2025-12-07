@@ -146,12 +146,22 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
               <p style="margin:0;color:#666;font-size:0.85rem;">Administre los cursos disponibles en el sistema</p>
             </div>
 
-            <!-- Búsqueda de cursos -->
+            <!-- Búsqueda de cursos y reportes -->
             <div style="margin-bottom:15px;padding:12px;background:#fafafa;border-radius:8px;border:1px solid #e0e0e0;">
               <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;">
                 <div style="flex:1;min-width:250px;">
                   <label style="display:block;margin-bottom:4px;font-size:0.85rem;font-weight:600;color:#666;">🔍 Búsqueda en tiempo real</label>
                   <input id="txtBuscarCurso" class="easyui-textbox" prompt="Escribe para filtrar cursos..." style="width:100%;max-width:400px;">
+                </div>
+                <div style="flex:1;min-width:250px;">
+                  <label style="display:block;margin-bottom:4px;font-size:0.85rem;font-weight:600;color:#666;">📄 Reportes</label>
+                  <div style="display:flex;gap:5px;">
+                    <select id="comboReportesCursos" class="easyui-combobox" panelHeight="auto" style="width:200px;">
+                      <option value="">Seleccione reporte...</option>
+                      <option value="reporteEstudiantesPorCurso">Estudiantes por curso</option>
+                    </select>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-print" onclick="verReporteCurso()">Ver reporte</a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -519,6 +529,22 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
         });
       } else {
         $.messager.alert('Aviso', 'Por favor, seleccione un curso.');
+      }
+    }
+
+    function verReporteCurso() {
+      var reporte = $('#comboReportesCursos').combobox('getValue');
+      var row = $('#dgCursos').datagrid('getSelected');
+
+      if (reporte === "reporteEstudiantesPorCurso") {
+        if (row) {
+          var cursoId = encodeURIComponent(row.id);
+          window.open('Reportes/ConFPDF/ReporteEstudiantesPorCurso.php?curso_id=' + cursoId, '_blank');
+        } else {
+          $.messager.alert('Aviso', 'Por favor, seleccione un curso para el reporte.');
+        }
+      } else {
+        $.messager.alert('Aviso', 'Seleccione un tipo de reporte.');
       }
     }
 

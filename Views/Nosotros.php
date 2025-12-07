@@ -142,13 +142,27 @@ $rol     = $_SESSION['rol'] ?? '';
         <div class="card card-uta mb-4">
           <div class="card-header bg-white">
             <div class="row g-3 align-items-end">
-              <div class="col-md-12">
+              <div class="col-md-6">
                 <label class="form-label mb-1 fw-semibold text-danger">
                   Búsqueda de cursos
                 </label>
                 <div class="input-group input-group-sm">
                   <span class="input-group-text"><i class="bi bi-search"></i></span>
                   <input type="text" id="txtBuscarCurso" class="form-control" placeholder="Buscar curso por nombre...">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label mb-1 fw-semibold text-danger">
+                  Reportes (FPDF)
+                </label>
+                <div class="input-group input-group-sm">
+                  <select id="comboReportesCursos" class="form-select">
+                    <option value="">Seleccione un reporte...</option>
+                    <option value="reporteEstudiantesPorCurso">Estudiantes por curso</option>
+                  </select>
+                  <button class="btn btn-uta" id="btnReporteCurso">
+                    <i class="bi bi-file-earmark-pdf"></i> Ver reporte
+                  </button>
                 </div>
               </div>
             </div>
@@ -476,6 +490,10 @@ $rol     = $_SESSION['rol'] ?? '';
         }, 300);
       });
 
+      $('#btnReporteCurso').on('click', function () {
+        verReporteCurso();
+      });
+
       $('#btnNuevoCurso').on('click', function () {
         $('#modoCurso').val('nuevo');
         $('#idCurso').val('');
@@ -794,6 +812,22 @@ $rol     = $_SESSION['rol'] ?? '';
           window.open('Reportes/ConFPDF/ReporteFPDFCedula.php?cedula=' + cedula, '_blank');
         } else {
           alert('Seleccione un estudiante para el reporte por cédula.');
+        }
+      } else {
+        alert('Seleccione un tipo de reporte.');
+      }
+    }
+
+    function verReporteCurso() {
+      const reporte = $('#comboReportesCursos').val();
+      const curso = cursoSeleccionado;
+
+      if (reporte === "reporteEstudiantesPorCurso") {
+        if (curso) {
+          const cursoId = encodeURIComponent(curso.id);
+          window.open('Reportes/ConFPDF/ReporteEstudiantesPorCurso.php?curso_id=' + cursoId, '_blank');
+        } else {
+          alert('Seleccione un curso de la tabla para generar el reporte.');
         }
       } else {
         alert('Seleccione un tipo de reporte.');
