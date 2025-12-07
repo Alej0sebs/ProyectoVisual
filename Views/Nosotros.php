@@ -163,6 +163,9 @@ $rol     = $_SESSION['rol'] ?? '';
                 <button type="button" class="btn btn-uta btn-sm me-1" id="btnNuevoCurso">
                   <i class="bi bi-plus-circle"></i> Nuevo Curso
                 </button>
+                <button type="button" class="btn btn-uta btn-sm me-1" id="btnEditarCurso">
+                  <i class="bi bi-pencil-square"></i> Editar
+                </button>
                 <button type="button" class="btn btn-danger btn-sm" id="btnEliminarCurso">
                   <i class="bi bi-trash"></i> Eliminar
                 </button>
@@ -307,6 +310,8 @@ $rol     = $_SESSION['rol'] ?? '';
         </div>
         <div class="modal-body">
           <form id="formCurso">
+            <input type="hidden" id="modoCurso" value="nuevo">
+            <input type="hidden" id="idCurso">
             <div class="mb-3">
               <label for="nombreCurso" class="form-label">Nombre del Curso</label>
               <input type="text" class="form-control" id="nombreCurso" name="nombre" required>
@@ -346,7 +351,7 @@ $rol     = $_SESSION['rol'] ?? '';
 
       if (ROL !== 'admin') {
         $('#btnNuevo, #btnEditar, #btnEliminar').hide();
-        $('#btnNuevoCurso, #btnEliminarCurso').hide();
+        $('#btnNuevoCurso, #btnEditarCurso, #btnEliminarCurso').hide();
       }
 
       cargarEstudiantes();
@@ -472,19 +477,42 @@ $rol     = $_SESSION['rol'] ?? '';
       });
 
       $('#btnNuevoCurso').on('click', function () {
+        $('#modoCurso').val('nuevo');
+        $('#idCurso').val('');
         $('#formCurso')[0].reset();
         $('#modalCursoLabel').text('Nuevo Curso');
         modalCurso.show();
       });
 
+      $('#btnEditarCurso').on('click', function () {
+        if (!cursoSeleccionado) {
+          alert('Seleccione un curso de la tabla.');
+          return;
+        }
+        $('#modoCurso').val('editar');
+        $('#idCurso').val(cursoSeleccionado.id);
+        $('#nombreCurso').val(cursoSeleccionado.nombre);
+        $('#modalCursoLabel').text('Editar Curso');
+        modalCurso.show();
+      });
+
       $('#btnGuardarCurso').on('click', function () {
+        const modo = $('#modoCurso').val();
         const nombre = $('#nombreCurso').val().trim();
         if (nombre === '') {
           alert('Ingrese el nombre del curso.');
           return;
         }
 
-        $.post('Models/save_curso.php', { nombre: nombre }, function (resp) {
+        let url = '';
+        if (modo === 'nuevo') {
+          url = 'Models/save_curso.php';
+        } else {
+          const id = $('#idCurso').val();
+          url = 'Models/update_curso.php?id=' + id;
+        }
+
+        $.post(url, { nombre: nombre }, function (resp) {
           let data = resp;
           if (typeof resp === 'string') {
             try { data = JSON.parse(resp); } catch (e) {
@@ -494,11 +522,12 @@ $rol     = $_SESSION['rol'] ?? '';
           }
 
           if (data && data.success) {
-            alert('Curso creado correctamente.');
+            alert(modo === 'nuevo' ? 'Curso creado correctamente.' : 'Curso actualizado correctamente.');
             modalCurso.hide();
             cargarCursos();
+            cursoSeleccionado = null;
           } else {
-            alert((data && data.errorMsg) ? data.errorMsg : 'No se pudo crear el curso.');
+            alert((data && data.errorMsg) ? data.errorMsg : 'No se pudo guardar el curso.');
           }
         }, 'json');
       });
