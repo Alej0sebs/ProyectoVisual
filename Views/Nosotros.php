@@ -31,7 +31,7 @@ $rol     = $_SESSION['rol'] ?? '';
   <div class="page-wrapper">
     <div class="page-header">
       <div class="page-header-top">
-        <h1>Sistema de Estudiantes</h1>
+        <h1>Sistema de Gestión Académica</h1>
         <a href="Models/logout.php" class="logout-btn">
           <i class="bi bi-box-arrow-right"></i> Cerrar sesión
         </a>
