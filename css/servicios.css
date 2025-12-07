@@ -1,0 +1,63 @@
+me gustaba mas como estaba la pagina antes pero creo que es porque ya tenia un archivo llamado servicios.css y tenia este contenido
+/* Reset básico */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Body y html ocupan toda la altura */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: #faf6f6;
+}
+
+/* Contenedor principal para todo el contenido (excluyendo footer) */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Contenido principal (todo excepto footer) */
+body > *:not(footer) {
+  flex: 1 0 auto;
+}
+
+/* Footer fijo al fondo */
+footer {
+  flex-shrink: 0;
+  background-color: #7a0000;
+  color: white;
+  text-align: center;
+  padding: 1rem 0;
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+header {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  background: none;
+}
+
+.logo-container {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.logo-container img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+

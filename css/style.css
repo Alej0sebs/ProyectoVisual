@@ -1,0 +1,47 @@
+header{
+    position: relative;
+    background-color: antiquewhite;
+    height: auto;
+    width: 100%;
+    padding: 10px;
+}
+nav{
+    position: relative;
+    margin: auto;
+    
+    width: 100%;
+    height: auto;
+     text-align: center;
+    background-color: brown;
+}
+nav ul{
+    margin: auto;
+    width: 50%;
+    position: relative;
+    text-align: center;
+}
+nav ul li{
+    display: inline-block;
+    margin: auto;
+    width: 23%;
+    line-height: 50px;
+    color: white;
+    list-style: georgian;
+}
+nav ul li a{
+    color: white;
+    list-style: georgian;
+    text-decoration: none;
+}
+section{
+    position: relative;
+    padding: 10px;
+    background-color: brown;
+    color: white;
+    text-align: center;
+    font-size: 24;
+}
+.texto{
+    color: green;
+    font-size: 25;
+}

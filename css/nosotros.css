@@ -1,0 +1,120 @@
+/* Estilos generales */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f6f8;
+  color: #333;
+}
+
+/* Header */
+header {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  background: none;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.logo-container {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.logo-container img {
+  width: 100%;
+  max-width: 100%;
+  display: block;
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Main */
+main {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Sección resumen */
+.resumen {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.resumen div {
+  background-color: #ffecec;
+  padding: 1rem;
+  border-radius: 8px;
+  flex: 1;
+  margin: 0 0.5rem;
+}
+
+.resumen h2 {
+  color: #9e0000;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.resumen p {
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+/* Secciones comunes */
+section {
+  margin-bottom: 2rem;
+}
+
+h2 {
+  color: #7a0707;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 0.3rem;
+}
+
+ul {
+  padding-left: 1.2rem;
+}
+
+/* Noticias */
+.noticias {
+  list-style: none;
+  padding: 0;
+}
+
+.noticias li {
+  margin-bottom: 1rem;
+  padding: 0.8rem;
+  background-color: #fdf2f2;
+  border-left: 5px solid #d90000;
+  border-radius: 4px;
+}
+
+.noticias h3 {
+  margin: 0;
+  color: #8a0000;
+}
+
+.noticias p {
+  margin: 0.3rem 0 0 0;
+  font-size: 0.9rem;
+}
+
+/* Footer */
+footer {
+  background-color: #4d0600;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+}

@@ -1,0 +1,110 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #faf6f6;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+}
+
+header {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  background: none;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.logo-container {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.logo-container img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+main {
+  max-width: 800px;
+  margin: auto;
+  padding: 2rem;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+h2 {
+  color: #7a0707;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 0.3rem;
+  margin-top: 2rem;
+}
+
+.perfil ul {
+  list-style: none;
+  padding: 0;
+}
+
+.perfil ul li {
+  margin-bottom: 0.8rem;
+}
+
+.perfil a {
+  color: #a10b0b;
+  text-decoration: none;
+}
+
+.perfil a:hover {
+  text-decoration: underline;
+}
+
+.formulario form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+label {
+  font-weight: bold;
+}
+
+input, textarea {
+  padding: 0.5rem;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+button {
+  background-color: #9e0000;
+  color: white;
+  padding: 0.7rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: #7a0000;
+}
+footer {
+  background-color: #4d0600;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+}
