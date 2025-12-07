@@ -1,11 +1,17 @@
-/* Variables CSS */
+/* ===================================
+   VARIABLES Y RESET
+   =================================== */
 :root {
   --rojo-uta: #a50000;
   --rojo-uta-oscuro: #7a0000;
   --rojo-uta-claro: #fbeaea;
+  --gris-texto: #333;
+  --gris-claro: #f8f9fa;
+  --sombra: 0 8px 30px rgba(165, 0, 0, 0.12);
+  --sombra-hover: 0 15px 50px rgba(165, 0, 0, 0.25);
+  --transicion: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Reset básico */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -15,23 +21,45 @@
 html {
   margin: 0 !important;
   padding: 0 !important;
+  scroll-behavior: smooth;
 }
 
 body {
-  background: linear-gradient(180deg, #ffe9e9 0%, #ffdada 100%);
-  font-family: 'Segoe UI', Arial, sans-serif;
+  background: linear-gradient(135deg, #fff5f5 0%, #ffe9e9 50%, #ffd8d8 100%);
+  background-attachment: fixed;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   margin: 0 !important;
   padding: 0 !important;
   min-height: 100vh;
-  color: #333;
+  color: var(--gris-texto);
+  line-height: 1.6;
+  position: relative;
 }
 
-/* Header */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(165, 0, 0, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(165, 0, 0, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ===================================
+   HEADER
+   =================================== */
 header {
   text-align: center;
   padding: 0;
   margin: 0;
   background: none;
+  position: relative;
+  z-index: 1;
 }
 
 header img {
@@ -40,7 +68,9 @@ header img {
   margin: 0;
 }
 
-/* Page Wrapper */
+/* ===================================
+   PAGE WRAPPER
+   =================================== */
 .page-wrapper {
   width: 100%;
   padding: 0 20px;
@@ -48,14 +78,42 @@ header img {
   flex-direction: column;
   align-items: center;
   min-height: calc(100vh - 200px);
+  position: relative;
+  z-index: 1;
+  animation: fadeIn 0.8s ease-out;
 }
 
-/* Page Header */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===================================
+   PAGE HEADER
+   =================================== */
 .page-header {
   width: 100%;
   text-align: center;
-  margin: 1.8rem 0 1.5rem;
+  margin: 2rem 0 1.5rem;
   padding: 0 20px;
+  animation: slideDown 0.8s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .page-header-top {
@@ -64,14 +122,26 @@ header img {
   align-items: center;
   gap: 20px;
   margin-bottom: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: 2px solid var(--rojo-uta-claro);
+  padding: 1.2rem 1.5rem;
+  background: white;
+  border-radius: 15px;
+  box-shadow: var(--sombra);
+  border: 1px solid rgba(165, 0, 0, 0.1);
+  transition: var(--transicion);
+}
+
+.page-header-top:hover {
+  box-shadow: var(--sombra-hover);
+  transform: translateY(-2px);
 }
 
 .page-header h1 {
   margin: 0;
-  font-size: 1.8rem;
-  color: var(--rojo-uta);
+  font-size: 2rem;
+  background: linear-gradient(135deg, var(--rojo-uta) 0%, var(--rojo-uta-oscuro) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   letter-spacing: 0.03em;
   flex: 1;
   text-align: left;
@@ -85,25 +155,47 @@ header img {
 
 .page-header p {
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: #555;
   text-align: left;
-  background: #f8f9fa;
-  padding: 0.6rem 1rem;
-  border-radius: 8px;
+  background: linear-gradient(135deg, #ffffff 0%, var(--gris-claro) 100%);
+  padding: 0.8rem 1.5rem;
+  border-radius: 12px;
   border-left: 4px solid var(--rojo-uta);
   display: inline-block;
   max-width: fit-content;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  font-weight: 500;
 }
 
-/* Panel Principal */
+/* ===================================
+   PANEL PRINCIPAL
+   =================================== */
 .panel {
   width: 100%;
   max-width: 1100px;
-  background: rgba(255, 255, 255, 0.98);
-  border-radius: 14px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
-  padding: 1.4rem 1.4rem 1.8rem;
+  background: white;
+  border-radius: 20px;
+  box-shadow: var(--sombra);
+  padding: 1.8rem 1.8rem 2rem;
+  border: 1px solid rgba(165, 0, 0, 0.08);
+  transition: var(--transicion);
+  animation: cardAppear 0.6s ease-out backwards;
+}
+
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.panel:hover {
+  box-shadow: var(--sombra-hover);
 }
 
 .panel-header {
@@ -112,9 +204,9 @@ header img {
   gap: 0.75rem;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 1rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-  padding-bottom: 0.8rem;
+  margin-bottom: 1.2rem;
+  border-bottom: 2px solid var(--rojo-uta-claro);
+  padding-bottom: 1rem;
 }
 
 .panel-header-left,
@@ -126,29 +218,47 @@ header img {
 }
 
 .panel-header-title {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--rojo-uta);
+  font-size: 1rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--rojo-uta) 0%, var(--rojo-uta-oscuro) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin-right: 0.5rem;
 }
 
-/* DataGrid Styles */
+/* ===================================
+   DATAGRID STYLES
+   =================================== */
 .easyui-datagrid,
 .datagrid-view {
   background: transparent !important;
-  border-radius: 10px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(165, 0, 0, 0.1) !important;
 }
 
 .datagrid-header-row {
-  background: var(--rojo-uta) !important;
+  background: linear-gradient(135deg, var(--rojo-uta) 0%, var(--rojo-uta-oscuro) 100%) !important;
   color: #fff !important;
   font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
 }
 
 .datagrid-header,
 .datagrid-htable {
-  border-radius: 8px 8px 0 0;
+  border-radius: 12px 12px 0 0;
   overflow: hidden;
+}
+
+.datagrid-row {
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.datagrid-row:hover {
+  background: #fff8f8 !important;
 }
 
 .datagrid-row-alt {
@@ -156,168 +266,295 @@ header img {
 }
 
 .datagrid-row-selected {
-  background: #ffd6d6 !important;
+  background: linear-gradient(135deg, #ffd6d6 0%, #ffecec 100%) !important;
+  border-left: 3px solid var(--rojo-uta) !important;
 }
 
 .datagrid-cell {
   font-size: 0.9rem;
+  padding: 10px 8px !important;
 }
 
-/* Botones */
+/* ===================================
+   BOTONES
+   =================================== */
 .easyui-linkbutton {
-  background: var(--rojo-uta) !important;
+  background: linear-gradient(135deg, var(--rojo-uta) 0%, var(--rojo-uta-oscuro) 100%) !important;
   color: #fff !important;
-  border-radius: 6px !important;
+  border-radius: 8px !important;
   border: none !important;
   font-weight: 600;
-  margin-right: 4px;
-  padding: 4px 10px !important;
-  font-size: 0.86rem;
-  transition: background 0.2s, transform 0.1s;
+  margin-right: 6px;
+  padding: 6px 14px !important;
+  font-size: 0.88rem;
+  transition: var(--transicion);
+  box-shadow: 0 4px 12px rgba(165, 0, 0, 0.25) !important;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.easyui-linkbutton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: left 0.3s ease;
+}
+
+.easyui-linkbutton:hover::before {
+  left: 100%;
 }
 
 .easyui-linkbutton:hover {
-  background: var(--rojo-uta-oscuro) !important;
+  background: linear-gradient(135deg, var(--rojo-uta-oscuro) 0%, #5a0000 100%) !important;
   color: #fff !important;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(165, 0, 0, 0.35) !important;
 }
 
-/* Inputs específicos */
+.easyui-linkbutton:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(165, 0, 0, 0.25) !important;
+}
+
+/* ===================================
+   INPUTS Y FORMULARIOS
+   =================================== */
 #txtBuscarCedula,
 #comboReportes {
-  height: 32px;
+  height: 34px;
+  border-radius: 8px !important;
+  border: 1px solid #ddd !important;
+  transition: var(--transicion);
 }
 
-/* Diálogos */
+#txtBuscarCedula:focus,
+#comboReportes:focus {
+  border-color: var(--rojo-uta) !important;
+  box-shadow: 0 0 0 3px rgba(165, 0, 0, 0.1) !important;
+  outline: none;
+}
+
+.textbox,
+.combo {
+  border-radius: 8px !important;
+}
+
+.textbox .textbox-text {
+  height: 32px !important;
+  line-height: 32px !important;
+  border-radius: 8px !important;
+  padding: 0 10px !important;
+}
+
+.combo .combo-text {
+  height: 32px !important;
+  line-height: 32px !important;
+  border-radius: 8px !important;
+}
+
+/* ===================================
+   DIÁLOGOS
+   =================================== */
 .easyui-dialog {
-  border-radius: 12px !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3) !important;
+  border: 1px solid rgba(165, 0, 0, 0.1) !important;
+  overflow: hidden;
 }
 
 .easyui-dialog h3 {
-  color: var(--rojo-uta);
+  background: linear-gradient(135deg, var(--rojo-uta) 0%, var(--rojo-uta-oscuro) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+  font-weight: 700;
 }
 
 .easyui-dialog input,
 .easyui-dialog select {
-  border-radius: 6px !important;
-  padding: 6px 10px !important;
+  border-radius: 8px !important;
+  padding: 8px 12px !important;
+  border: 1px solid #ddd !important;
+  transition: var(--transicion);
 }
 
-/* Estilos para las pestañas */
+.easyui-dialog input:focus,
+.easyui-dialog select:focus {
+  border-color: var(--rojo-uta) !important;
+  box-shadow: 0 0 0 3px rgba(165, 0, 0, 0.1) !important;
+  outline: none;
+}
+
+/* ===================================
+   PESTAÑAS (TABS)
+   =================================== */
 .tabs-title {
-  font-size: 0.95rem !important;
+  font-size: 1rem !important;
   font-weight: 600 !important;
-  padding: 8px 15px !important;
+  padding: 10px 20px !important;
+  transition: var(--transicion);
+  border-radius: 8px 8px 0 0 !important;
+}
+
+.tabs-title:hover {
+  background: rgba(165, 0, 0, 0.05) !important;
 }
 
 .tabs-selected .tabs-title {
   color: var(--rojo-uta) !important;
+  background: linear-gradient(to bottom, rgba(165, 0, 0, 0.08) 0%, transparent 100%) !important;
   border-bottom: 3px solid var(--rojo-uta) !important;
+  font-weight: 700 !important;
 }
 
 .tabs-header {
   border-bottom: 2px solid var(--rojo-uta-claro) !important;
-  background: #fff !important;
+  background: linear-gradient(to bottom, #ffffff 0%, #fafafa 100%) !important;
+  padding-top: 5px !important;
 }
 
 .tabs-panels {
   background: #fff !important;
   border: none !important;
+  border-radius: 0 0 12px 12px !important;
 }
 
 .panel-body {
   overflow: visible !important;
+  padding: 10px !important;
 }
 
-/* Ajustar altura de inputs en EasyUI */
-.textbox .textbox-text {
-  height: 30px !important;
-  line-height: 30px !important;
-}
-
-.combo .combo-text {
-  height: 30px !important;
-  line-height: 30px !important;
-}
-
-/* Footer */
+/* ===================================
+   FOOTER
+   =================================== */
 footer {
   text-align: center;
   color: #fff;
-  font-size: 0.95em;
-  margin-top: 1rem;
-  padding: 0.8rem 0 1rem;
-  background: var(--rojo-uta);
+  font-size: 0.95rem;
+  margin-top: 2rem;
+  padding: 1.2rem 0;
+  background: linear-gradient(135deg, var(--rojo-uta-oscuro) 0%, #3d0000 100%);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+  font-weight: 500;
 }
 
-/* Login Styles */
+footer p {
+  margin: 0;
+}
+
+/* ===================================
+   LOGIN STYLES
+   =================================== */
 .login-wrapper {
   width: 100%;
-  max-width: 420px;
-  margin: 0 auto;
+  max-width: 450px;
+  margin: 3rem auto;
   padding: 2rem 1rem;
+  animation: fadeIn 0.8s ease-out;
 }
 
 .login-card {
-  background: #fff;
-  border-radius: 14px;
-  padding: 2rem 2.5rem 2.5rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  border-top: 5px solid var(--rojo-uta);
+  background: white;
+  border-radius: 20px;
+  padding: 2.5rem 3rem 3rem;
+  box-shadow: var(--sombra-hover);
+  border: 1px solid rgba(165, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.login-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--rojo-uta) 0%, var(--rojo-uta-oscuro) 100%);
 }
 
 .login-card h2 {
-  margin: 0 0 0.8rem;
+  margin: 0 0 1rem;
   text-align: center;
-  color: var(--rojo-uta);
-  font-size: 1.6rem;
+  background: linear-gradient(135deg, var(--rojo-uta) 0%, var(--rojo-uta-oscuro) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 1.8rem;
   font-weight: 700;
 }
 
 .login-card p {
-  margin: 0 0 1.5rem;
+  margin: 0 0 2rem;
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: #666;
+  line-height: 1.5;
 }
 
 .login-card label {
-  font-size: 0.86rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: #444;
+  display: block;
+  margin-bottom: 6px;
 }
 
 .login-card input {
   width: 100%;
-  padding: 7px 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  margin-top: 2px;
-  margin-bottom: 10px;
-  font-size: 0.9rem;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+  transition: var(--transicion);
+  font-family: inherit;
+}
+
+.login-card input:focus {
+  border-color: var(--rojo-uta);
+  box-shadow: 0 0 0 3px rgba(165, 0, 0, 0.1);
+  outline: none;
 }
 
 .login-error {
   color: #b30000;
-  background: #ffe3e3;
-  border-radius: 6px;
-  padding: 6px 10px;
-  margin-bottom: 0.8rem;
-  font-size: 0.85rem;
+  background: linear-gradient(135deg, #ffe3e3 0%, #ffd6d6 100%);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 1.2rem;
+  font-size: 0.88rem;
+  border-left: 4px solid #b30000;
+  font-weight: 500;
+  animation: shake 0.4s ease;
 }
 
-/* Responsive Design */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* ===================================
+   RESPONSIVE DESIGN
+   =================================== */
 @media (max-width: 768px) {
   .panel {
     margin: 0 0.5rem;
-    padding: 1rem;
+    padding: 1.2rem;
+    border-radius: 16px;
   }
 
   .page-header h1 {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     text-align: center;
     width: 100%;
   }
@@ -326,7 +563,7 @@ footer {
     flex-direction: column;
     align-items: center;
     gap: 15px;
-    padding-bottom: 0.8rem;
+    padding: 1rem;
   }
 
   .logout-btn {
@@ -336,6 +573,30 @@ footer {
 
   .page-header p {
     text-align: center;
+    width: 100%;
+  }
+
+  .login-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .easyui-linkbutton {
+    padding: 8px 12px !important;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-header h1 {
+    font-size: 1.3rem;
+  }
+
+  .login-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .login-card h2 {
+    font-size: 1.5rem;
   }
 }
 
