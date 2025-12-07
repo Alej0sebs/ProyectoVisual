@@ -39,7 +39,7 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
       <div class="login-wrapper">
         <div class="login-card">
           <h2>Iniciar sesión</h2>
-          <p>Ingrese sus credenciales para acceder a Servicios.</p>
+          <p>Ingrese sus credenciales para acceder a <?php echo isset($_GET['redirect']) ? htmlspecialchars($_GET['redirect']) : 'Servicios'; ?>.</p>
 
           <?php if ($login_error !== ''): ?>
             <div class="login-error"><?php echo htmlspecialchars($login_error); ?></div>
