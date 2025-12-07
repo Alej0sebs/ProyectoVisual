@@ -1,13 +1,36 @@
-/* Estilos generales */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f4f6f8;
-  color: #333;
+/* ===================================
+   VARIABLES CSS
+   =================================== */
+:root {
+  --rojo-uta: #a50000;
+  --rojo-uta-oscuro: #7a0000;
+  --rojo-uta-claro: #fbeaea;
 }
 
-/* Header */
+/* ===================================
+   ESTILOS GENERALES
+   =================================== */
+body {
+  background: linear-gradient(180deg, #ffe9e9 0%, #ffdada 100%);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* ===================================
+   WRAPPER DE PÁGINA
+   =================================== */
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: calc(100vh - 200px);
+  padding: 0 20px;
+}
+
+/* ===================================
+   HEADER
+   =================================== */
 header {
   text-align: center;
   padding: 0;
@@ -15,41 +38,219 @@ header {
   background: none;
 }
 
-header h1 {
+header img {
+  width: 100%;
+  display: block;
+}
+
+/* ===================================
+   PAGE HEADER
+   =================================== */
+.page-header {
+  width: 100%;
+  text-align: center;
+  margin: 1.8rem 0 1.5rem;
+  padding: 0 20px;
+}
+
+.page-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 2px solid rgba(165, 0, 0, 0.15);
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.page-header h1 {
   margin: 0;
   font-size: 1.8rem;
+  color: var(--rojo-uta);
+  font-weight: 700;
 }
 
-.logo-container {
+.page-header p {
+  display: inline-block;
+  max-width: fit-content;
+  margin: 0.5rem auto;
+  padding: 0.5rem 1.2rem;
+  font-size: 0.95rem;
+  color: #555;
+  background-color: rgba(165, 0, 0, 0.05);
+  border: 1px solid rgba(165, 0, 0, 0.15);
+  border-radius: 8px;
+}
+
+.page-header p strong {
+  color: var(--rojo-uta);
+}
+
+.page-header .logout-btn {
+  background-color: var(--rojo-uta);
+  color: white;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.page-header .logout-btn:hover {
+  background-color: var(--rojo-uta-oscuro);
+  color: white;
+}
+
+.badge-uta {
+  background-color: var(--rojo-uta-claro);
+  color: var(--rojo-uta);
+  font-weight: 600;
+}
+
+/* ===================================
+   PANEL/CARD
+   =================================== */
+.card-uta {
   width: 100%;
-  margin: 0;
-  padding: 0;
+  max-width: 1100px;
+  border-radius: 14px;
+  border: 1px solid rgba(165, 0, 0, 0.12);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  background: #ffffff;
 }
 
-.logo-container img {
-  width: 100%;
-  max-width: 100%;
-  display: block;
-  margin: 0;
-  border-radius: 0;
-  box-shadow: none;
+.btn-uta {
+  background-color: var(--rojo-uta);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 6px;
+  border: none;
 }
 
-/* Main */
-main {
-  max-width: 1000px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background-color: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+.btn-uta:hover {
+  background-color: var(--rojo-uta-oscuro);
+  color: #fff;
 }
 
-/* Sección resumen */
-.resumen {
-  display: flex;
-  justify-content: space-around;
+/* ===================================
+   TABLA
+   =================================== */
+table thead {
+  background-color: var(--rojo-uta);
+  color: #fff;
+}
+
+/* Estilo para filas con hover */
+.table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background-color: var(--rojo-uta-claro);
+  cursor: pointer;
+}
+
+/* Estilo para fila seleccionada */
+tbody tr.table-row-selected {
+  background-color: var(--rojo-uta) !important;
+  color: white !important;
+  font-weight: 500;
+}
+
+tbody tr.table-row-selected:hover {
+  background-color: var(--rojo-uta-oscuro) !important;
+}
+
+.table-responsive {
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+}
+
+.table-responsive::-webkit-scrollbar {
+  width: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background: var(--rojo-uta);
+  border-radius: 10px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+  background: var(--rojo-uta-oscuro);
+}
+
+.table-responsive table {
+  margin-bottom: 0;
+}
+
+.table-responsive thead th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: var(--rojo-uta);
+}
+
+/* ===================================
+   FOOTER
+   =================================== */
+footer {
   text-align: center;
-  margin-bottom: 2rem;
+  color: #fff;
+  font-size: 0.95em;
+  margin-top: 1.5rem;
+  padding: 0.8rem 0 1rem;
+  background: var(--rojo-uta);
+}
+
+/* ===================================
+   TABS DE BOOTSTRAP
+   =================================== */
+.nav-tabs {
+  border-bottom: 2px solid rgba(165, 0, 0, 0.15);
+}
+
+.nav-tabs .nav-link {
+  color: #666;
+  border: none;
+  border-bottom: 2px solid transparent;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.3s;
+}
+
+.nav-tabs .nav-link:hover {
+  color: var(--rojo-uta);
+  border-color: rgba(165, 0, 0, 0.2);
+  background-color: rgba(165, 0, 0, 0.05);
+}
+
+.nav-tabs .nav-link.active {
+  color: var(--rojo-uta);
+  border-color: var(--rojo-uta);
+  background-color: transparent;
+}
+
+.tab-content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.tab-content .tab-pane {
+  width: 100%;
+  max-width: 1100px;
 }
 
 .resumen div {
