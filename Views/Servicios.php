@@ -24,264 +24,6 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
   <link rel="stylesheet" type="text/css" href="jquery/demo/demo.css">
   <script type="text/javascript" src="jquery/jquery.min.js"></script>
   <script type="text/javascript" src="jquery/jquery.easyui.min.js"></script>
-
-  <style>
-  :root {
-    --rojo-uta: #a50000;
-    --rojo-uta-oscuro: #7a0000;
-    --rojo-uta-claro: #fbeaea;
-  }
-
-  * {
-    box-sizing: border-box;
-  }
-
-  body {
-    background: radial-gradient(circle at top, #ffffff 0%, #fbeaea 40%, #ffffff 100%);
-    font-family: 'Segoe UI', Arial, sans-serif;
-    margin: 0;
-    min-height: 100vh;
-    color: #333;
-  }
-
-  .page-wrapper {
-    width: 100%;
-    margin: 1.5rem 0 2.5rem;
-    padding: 0 0 2rem;
-  }
-
-  .page-header {
-    text-align: center;
-    margin-bottom: 1.5rem;
-  }
-
-  .page-header h1 {
-    margin: 0;
-    font-size: 2rem;
-    color: var(--rojo-uta);
-    letter-spacing: 0.03em;
-  }
-
-  .page-header p {
-    margin: 0.4rem 0 0;
-    font-size: 0.95rem;
-    color: #6b6b6b;
-  }
-
-  .panel {
-    max-width: 1100px;
-    margin: 0 auto;
-    background: rgba(255, 255, 255, 0.98);
-    border-radius: 14px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
-    padding: 1.4rem 1.4rem 1.8rem;
-    border: 1px solid rgba(165, 0, 0, 0.10);
-  }
-
-  .panel-header {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-    padding-bottom: 0.8rem;
-  }
-
-  .panel-header-left,
-  .panel-header-right {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    align-items: center;
-  }
-
-  .panel-header-title {
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--rojo-uta);
-    margin-right: 0.5rem;
-  }
-
-  .easyui-datagrid,
-  .datagrid-view {
-    background: transparent !important;
-    border-radius: 10px;
-  }
-
-  .datagrid-header-row {
-    background: var(--rojo-uta) !important;
-    color: #fff !important;
-    font-weight: 600;
-  }
-
-  .datagrid-header,
-  .datagrid-htable {
-    border-radius: 8px 8px 0 0;
-    overflow: hidden;
-  }
-
-  .datagrid-row-alt {
-    background: var(--rojo-uta-claro) !important;
-  }
-
-  .datagrid-row-selected {
-    background: #ffd6d6 !important;
-  }
-
-  .datagrid-cell {
-    font-size: 0.9rem;
-  }
-
-  .easyui-linkbutton {
-    background: var(--rojo-uta) !important;
-    color: #fff !important;
-    border-radius: 6px !important;
-    border: none !important;
-    font-weight: 600;
-    margin-right: 4px;
-    padding: 4px 10px !important;
-    font-size: 0.86rem;
-    transition: background 0.2s, transform 0.1s;
-  }
-
-  .easyui-linkbutton:hover {
-    background: var(--rojo-uta-oscuro) !important;
-    color: #fff !important;
-    transform: translateY(-1px);
-  }
-
-  #txtBuscarCedula,
-  #comboReportes {
-    height: 32px;
-  }
-
-  .easyui-dialog {
-    border-radius: 12px !important;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18) !important;
-  }
-
-  .easyui-dialog h3 {
-    color: var(--rojo-uta);
-    text-align: center;
-    margin-bottom: 1rem;
-  }
-
-  .easyui-dialog input,
-  .easyui-dialog select {
-    border-radius: 6px !important;
-    padding: 6px 10px !important;
-  }
-
-  /* Estilos para las pestañas */
-  .tabs-title {
-    font-size: 0.95rem !important;
-    font-weight: 600 !important;
-    padding: 8px 15px !important;
-  }
-
-  .tabs-selected .tabs-title {
-    color: var(--rojo-uta) !important;
-    border-bottom: 3px solid var(--rojo-uta) !important;
-  }
-
-  .tabs-header {
-    border-bottom: 2px solid var(--rojo-uta-claro) !important;
-    background: #fff !important;
-  }
-
-  .tabs-panels {
-    background: #fff !important;
-    border: none !important;
-  }
-
-  .panel-body {
-    overflow: visible !important;
-  }
-
-  /* Ajustar altura de inputs en EasyUI */
-  .textbox .textbox-text {
-    height: 30px !important;
-    line-height: 30px !important;
-  }
-
-  .combo .combo-text {
-    height: 30px !important;
-    line-height: 30px !important;
-  }
-
-  footer {
-    text-align: center;
-    color: #fff;
-    font-size: 0.95em;
-    margin-top: 1rem;
-    padding: 0.8rem 0 1rem;
-    background: var(--rojo-uta);
-  }
-
-  .login-wrapper {
-    max-width: 420px;
-    margin: 2rem auto 0;
-  }
-
-  .login-card {
-    background: #fff;
-    border-radius: 14px;
-    padding: 1.8rem 2rem 2rem;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-    border-top: 4px solid var(--rojo-uta);
-  }
-
-  .login-card h2 {
-    margin: 0 0 0.5rem;
-    text-align: center;
-    color: var(--rojo-uta);
-  }
-
-  .login-card p {
-    margin: 0 0 1rem;
-    text-align: center;
-    font-size: 0.9rem;
-    color: #555;
-  }
-
-  .login-card label {
-    font-size: 0.86rem;
-    font-weight: 600;
-    color: #444;
-  }
-
-  .login-card input {
-    width: 100%;
-    padding: 7px 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    margin-top: 2px;
-    margin-bottom: 10px;
-    font-size: 0.9rem;
-  }
-
-  .login-error {
-    color: #b30000;
-    background: #ffe3e3;
-    border-radius: 6px;
-    padding: 6px 10px;
-    margin-bottom: 0.8rem;
-    font-size: 0.85rem;
-  }
-
-  @media (max-width: 768px) {
-    .panel {
-      margin: 0 0.5rem;
-      padding: 1rem;
-    }
-
-    .page-header h1 {
-      font-size: 1.6rem;
-    }
-  }
-  </style>
 </head>
 
 <body>
@@ -294,11 +36,6 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
   <?php if (!$logueado): ?>
 
     <div class="page-wrapper">
-      <div class="page-header">
-        <h1>Acceso al sistema</h1>
-        <p>Inicie sesión como Administrador o Secretaria para continuar.</p>
-      </div>
-
       <div class="login-wrapper">
         <div class="login-card">
           <h2>Iniciar sesión</h2>
@@ -330,16 +67,18 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
 
     <div class="page-wrapper">
       <div class="page-header">
-        <h1>Sistema de Gestión Académica</h1>
+        <div class="page-header-top">
+          <h1>Sistema de Gestión Académica</h1>
+          <div class="logout-btn">
+            <a href="Models/logout.php" class="easyui-linkbutton" iconCls="icon-cancel">
+              Cerrar sesión
+            </a>
+          </div>
+        </div>
         <p>
           Bienvenido <?php echo htmlspecialchars($_SESSION['usuario']); ?> · Rol:
           <strong><?php echo htmlspecialchars($rol); ?></strong>
         </p>
-        <div style="margin-top:8px;">
-          <a href="Models/logout.php" class="easyui-linkbutton" iconCls="icon-cancel">
-            Cerrar sesión
-          </a>
-        </div>
       </div>
 
       <div class="panel">
@@ -407,7 +146,17 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
               <p style="margin:0;color:#666;font-size:0.85rem;">Administre los cursos disponibles en el sistema</p>
             </div>
 
-            <table id="dgCursos" title="Listado de cursos disponibles" class="easyui-datagrid" style="width:100%;height:390px"
+            <!-- Búsqueda de cursos -->
+            <div style="margin-bottom:15px;padding:12px;background:#fafafa;border-radius:8px;border:1px solid #e0e0e0;">
+              <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;">
+                <div style="flex:1;min-width:250px;">
+                  <label style="display:block;margin-bottom:4px;font-size:0.85rem;font-weight:600;color:#666;">🔍 Búsqueda en tiempo real</label>
+                  <input id="txtBuscarCurso" class="easyui-textbox" prompt="Escribe para filtrar cursos..." style="width:100%;max-width:400px;">
+                </div>
+              </div>
+            </div>
+
+            <table id="dgCursos" title="Listado de cursos disponibles" class="easyui-datagrid" style="width:100%;height:330px"
               url="Models/get_cursos.php"
               method="post"
               toolbar="#toolbarCursos" pagination="true" rownumbers="true" fitColumns="true" singleSelect="true">
@@ -538,6 +287,22 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
           if(rec && rec.id) {
             cargarCursosEstudiante(rec.id);
           }
+        }
+      });
+
+      // Búsqueda en tiempo real para cursos
+      var timeoutBusqueda;
+      $('#txtBuscarCurso').textbox({
+        onChange: function(value) {
+          clearTimeout(timeoutBusqueda);
+          timeoutBusqueda = setTimeout(function() {
+            var nombre = value.trim();
+            if(nombre === '') {
+              $('#dgCursos').datagrid('load', {});
+            } else {
+              $('#dgCursos').datagrid('load', { nombre: nombre });
+            }
+          }, 300); // Espera 300ms después de que el usuario deje de escribir
         }
       });
     });

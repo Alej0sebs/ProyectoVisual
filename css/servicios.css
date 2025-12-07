@@ -1,63 +1,322 @@
-me gustaba mas como estaba la pagina antes pero creo que es porque ya tenia un archivo llamado servicios.css y tenia este contenido
+/* Variables CSS */
+:root {
+  --rojo-uta: #a50000;
+  --rojo-uta-oscuro: #7a0000;
+  --rojo-uta-claro: #fbeaea;
+}
+
 /* Reset básico */
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
-/* Body y html ocupan toda la altura */
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  background: #faf6f6;
-}
-
-/* Contenedor principal para todo el contenido (excluyendo footer) */
 body {
+  background: radial-gradient(circle at top, #ffffff 0%, #fbeaea 40%, #ffffff 100%);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  color: #333;
+}
+
+/* Page Wrapper */
+.page-wrapper {
+  width: 100%;
+  margin: 1.5rem auto 2.5rem;
+  padding: 0 1rem 2rem;
+  max-width: 1200px;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  align-items: center;
 }
 
-/* Contenido principal (todo excepto footer) */
-body > *:not(footer) {
-  flex: 1 0 auto;
+/* Page Header */
+.page-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  max-width: 1100px;
+  padding: 0 1rem;
 }
 
-/* Footer fijo al fondo */
-footer {
+.page-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--rojo-uta-claro);
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: var(--rojo-uta);
+  letter-spacing: 0.03em;
+  flex: 1;
+  text-align: left;
+  min-width: 250px;
+  font-weight: 700;
+}
+
+.logout-btn {
   flex-shrink: 0;
-  background-color: #7a0000;
-  color: white;
-  text-align: center;
-  padding: 1rem 0;
-  font-weight: bold;
+}
+
+.page-header p {
+  margin: 0;
   font-size: 0.95rem;
+  color: #555;
+  text-align: left;
+  background: #f8f9fa;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  border-left: 4px solid var(--rojo-uta);
+  display: inline-block;
+  max-width: fit-content;
 }
 
-header {
+/* Panel Principal */
+.panel {
+  width: 100%;
+  max-width: 1100px;
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  padding: 1.4rem 1.4rem 1.8rem;
+  border: 1px solid rgba(165, 0, 0, 0.10);
+}
+
+.panel-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  padding-bottom: 0.8rem;
+}
+
+.panel-header-left,
+.panel-header-right {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.panel-header-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--rojo-uta);
+  margin-right: 0.5rem;
+}
+
+/* DataGrid Styles */
+.easyui-datagrid,
+.datagrid-view {
+  background: transparent !important;
+  border-radius: 10px;
+}
+
+.datagrid-header-row {
+  background: var(--rojo-uta) !important;
+  color: #fff !important;
+  font-weight: 600;
+}
+
+.datagrid-header,
+.datagrid-htable {
+  border-radius: 8px 8px 0 0;
+  overflow: hidden;
+}
+
+.datagrid-row-alt {
+  background: var(--rojo-uta-claro) !important;
+}
+
+.datagrid-row-selected {
+  background: #ffd6d6 !important;
+}
+
+.datagrid-cell {
+  font-size: 0.9rem;
+}
+
+/* Botones */
+.easyui-linkbutton {
+  background: var(--rojo-uta) !important;
+  color: #fff !important;
+  border-radius: 6px !important;
+  border: none !important;
+  font-weight: 600;
+  margin-right: 4px;
+  padding: 4px 10px !important;
+  font-size: 0.86rem;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.easyui-linkbutton:hover {
+  background: var(--rojo-uta-oscuro) !important;
+  color: #fff !important;
+  transform: translateY(-1px);
+}
+
+/* Inputs específicos */
+#txtBuscarCedula,
+#comboReportes {
+  height: 32px;
+}
+
+/* Diálogos */
+.easyui-dialog {
+  border-radius: 12px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18) !important;
+}
+
+.easyui-dialog h3 {
+  color: var(--rojo-uta);
   text-align: center;
-  padding: 0;
-  margin: 0;
-  background: none;
+  margin-bottom: 1rem;
 }
 
-.logo-container {
-  width: 100%;
-  margin: 0;
-  padding: 0;
+.easyui-dialog input,
+.easyui-dialog select {
+  border-radius: 6px !important;
+  padding: 6px 10px !important;
 }
 
-.logo-container img {
+/* Estilos para las pestañas */
+.tabs-title {
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  padding: 8px 15px !important;
+}
+
+.tabs-selected .tabs-title {
+  color: var(--rojo-uta) !important;
+  border-bottom: 3px solid var(--rojo-uta) !important;
+}
+
+.tabs-header {
+  border-bottom: 2px solid var(--rojo-uta-claro) !important;
+  background: #fff !important;
+}
+
+.tabs-panels {
+  background: #fff !important;
+  border: none !important;
+}
+
+.panel-body {
+  overflow: visible !important;
+}
+
+/* Ajustar altura de inputs en EasyUI */
+.textbox .textbox-text {
+  height: 30px !important;
+  line-height: 30px !important;
+}
+
+.combo .combo-text {
+  height: 30px !important;
+  line-height: 30px !important;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  color: #fff;
+  font-size: 0.95em;
+  margin-top: 1rem;
+  padding: 0.8rem 0 1rem;
+  background: var(--rojo-uta);
+}
+
+/* Login Styles */
+.login-wrapper {
   width: 100%;
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0;
-  border-radius: 0;
-  box-shadow: none;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.login-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 2rem 2.5rem 2.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  border-top: 5px solid var(--rojo-uta);
+}
+
+.login-card h2 {
+  margin: 0 0 0.8rem;
+  text-align: center;
+  color: var(--rojo-uta);
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.login-card p {
+  margin: 0 0 1.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.login-card label {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.login-card input {
+  width: 100%;
+  padding: 7px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-top: 2px;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+.login-error {
+  color: #b30000;
+  background: #ffe3e3;
+  border-radius: 6px;
+  padding: 6px 10px;
+  margin-bottom: 0.8rem;
+  font-size: 0.85rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .panel {
+    margin: 0 0.5rem;
+    padding: 1rem;
+  }
+
+  .page-header h1 {
+    font-size: 1.4rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  .page-header-top {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding-bottom: 0.8rem;
+  }
+
+  .logout-btn {
+    width: 100%;
+    max-width: 250px;
+  }
+
+  .page-header p {
+    text-align: center;
+  }
 }
 
