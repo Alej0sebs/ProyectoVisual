@@ -67,33 +67,43 @@ $rol     = $_SESSION['rol'] ?? '';
       <div class="tab-pane fade show active" id="estudiantes" role="tabpanel">
         <div class="card card-uta mb-4">
           <div class="card-header bg-white">
-          <div class="row g-3 align-items-end">
+          <div class="row g-3">
             <div class="col-md-6">
-              <label class="form-label mb-1 fw-semibold text-danger">
-                Búsqueda rápida
+              <label class="form-label mb-2 fw-bold">
+                <i class="bi bi-search text-danger"></i> Búsqueda Rápida
               </label>
-              <div class="input-group input-group-sm">
-                <span class="input-group-text"><i class="bi bi-search"></i></span>
-                <input type="text" id="txtBuscarCedula" class="form-control" placeholder="Buscar por cédula...">
-                <button class="btn btn-uta" id="btnBuscar"><i class="bi bi-search"></i> Buscar</button>
-                <button class="btn btn-outline-secondary" id="btnLimpiar">
-                  <i class="bi bi-arrow-clockwise"></i> Limpiar
+              <div class="input-group">
+                <span class="input-group-text bg-light border-end-0">
+                  <i class="bi bi-person-badge"></i>
+                </span>
+                <input type="text" id="txtBuscarCedula" class="form-control border-start-0" placeholder="Ingrese número de cédula...">
+                <button class="btn btn-uta" id="btnBuscar">
+                  <i class="bi bi-search"></i> Buscar
                 </button>
+                <button class="btn btn-outline-danger" id="btnLimpiar" title="Limpiar búsqueda">
+                  <i class="bi bi-x-circle"></i>
+                </button>
+              </div>
+              <div class="form-text text-muted">
+                <i class="bi bi-info-circle"></i> Busca estudiantes por número de cédula
               </div>
             </div>
 
             <div class="col-md-6">
-              <label class="form-label mb-1 fw-semibold text-danger">
-                Reportes (FPDF)
+              <label class="form-label mb-2 fw-bold">
+                <i class="bi bi-file-earmark-pdf text-danger"></i> Reportes PDF
               </label>
-              <div class="input-group input-group-sm">
+              <div class="input-group">
+                <span class="input-group-text bg-light">
+                  <i class="bi bi-filetype-pdf"></i>
+                </span>
                 <select id="comboReportes" class="form-select">
-                  <option value="">Seleccione un reporte...</option>
-                  <option value="reporteFPDF">Reporte general PDF (FPDF)</option>
-                  <option value="reporteCedulaFPDF">Reporte por cédula PDF (FPDF)</option>
+                  <option value="">Seleccione tipo de reporte...</option>
+                  <option value="reporteFPDF">📄 Reporte General (Todos los estudiantes)</option>
+                  <option value="reporteCedulaFPDF">👤 Reporte Individual (Por cédula)</option>
                 </select>
-                <button class="btn btn-uta" id="btnReporte">
-                  <i class="bi bi-file-earmark-pdf"></i> Ver reporte
+                <button class="btn btn-danger" id="btnReporte">
+                  <i class="bi bi-download"></i> Generar
                 </button>
               </div>
             </div>
@@ -101,37 +111,45 @@ $rol     = $_SESSION['rol'] ?? '';
         </div>
 
         <div class="card-body">
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <h5 class="card-title mb-0 text-danger">
-              Listado de estudiantes
-            </h5>
+          <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
-              <button type="button" class="btn btn-uta btn-sm me-1" id="btnNuevo">
-                <i class="bi bi-plus-circle"></i> Nuevo
+              <h5 class="card-title mb-1">
+                <i class="bi bi-people-fill text-danger"></i> Listado de Estudiantes
+              </h5>
+              <p class="text-muted mb-0 small">
+                <i class="bi bi-info-circle"></i> Haz clic en una fila para seleccionar un estudiante
+              </p>
+            </div>
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-success" id="btnNuevo" title="Agregar nuevo estudiante">
+                <i class="bi bi-plus-circle-fill"></i> Nuevo
               </button>
-              <button type="button" class="btn btn-uta btn-sm me-1" id="btnEditar">
+              <button type="button" class="btn btn-primary" id="btnEditar" title="Editar estudiante seleccionado">
                 <i class="bi bi-pencil-square"></i> Editar
               </button>
-              <button type="button" class="btn btn-danger btn-sm" id="btnEliminar">
-                <i class="bi bi-trash"></i> Eliminar
+              <button type="button" class="btn btn-danger" id="btnEliminar" title="Eliminar estudiante seleccionado">
+                <i class="bi bi-trash-fill"></i> Eliminar
               </button>
             </div>
           </div>
 
           <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0" id="tablaEstudiantes">
-              <thead>
+            <table class="table table-hover table-striped align-middle mb-0" id="tablaEstudiantes">
+              <thead class="table-dark">
                 <tr>
-                  <th scope="col">Cédula</th>
-                  <th scope="col">Nombre</th>
-                  <th scope="col">Apellido</th>
-                  <th scope="col">Dirección</th>
-                  <th scope="col">Teléfono</th>
+                  <th scope="col"><i class="bi bi-card-text"></i> Cédula</th>
+                  <th scope="col"><i class="bi bi-person"></i> Nombre</th>
+                  <th scope="col"><i class="bi bi-person-badge"></i> Apellido</th>
+                  <th scope="col"><i class="bi bi-geo-alt"></i> Dirección</th>
+                  <th scope="col"><i class="bi bi-telephone"></i> Teléfono</th>
                 </tr>
               </thead>
               <tbody>
               </tbody>
             </table>
+          </div>
+          <div class="mt-2 text-muted small">
+            <i class="bi bi-info-circle-fill"></i> Total de estudiantes: <span id="totalEstudiantes" class="badge bg-danger">0</span>
           </div>
         </div>
       </div>
@@ -143,25 +161,27 @@ $rol     = $_SESSION['rol'] ?? '';
           <div class="card-header bg-white">
             <div class="row g-3 align-items-end">
               <div class="col-md-6">
-                <label class="form-label mb-1 fw-semibold text-danger">
-                  Búsqueda de cursos
+                <label class="form-label mb-1 fw-bold">
+                  <i class="bi bi-search text-danger"></i> Búsqueda de cursos
                 </label>
-                <div class="input-group input-group-sm">
-                  <span class="input-group-text"><i class="bi bi-search"></i></span>
+                <div class="input-group">
+                  <span class="input-group-text bg-light">
+                    <i class="bi bi-book"></i>
+                  </span>
                   <input type="text" id="txtBuscarCurso" class="form-control" placeholder="Buscar curso por nombre...">
                 </div>
               </div>
               <div class="col-md-6">
-                <label class="form-label mb-1 fw-semibold text-danger">
-                  Reportes (FPDF)
+                <label class="form-label mb-1 fw-bold">
+                  <i class="bi bi-file-earmark-pdf text-danger"></i> Reportes (FPDF)
                 </label>
-                <div class="input-group input-group-sm">
+                <div class="input-group">
                   <select id="comboReportesCursos" class="form-select">
                     <option value="">Seleccione un reporte...</option>
-                    <option value="reporteEstudiantesPorCurso">Estudiantes por curso</option>
+                    <option value="reporteEstudiantesPorCurso">👥 Estudiantes por curso</option>
                   </select>
-                  <button class="btn btn-uta" id="btnReporteCurso">
-                    <i class="bi bi-file-earmark-pdf"></i> Ver reporte
+                  <button class="btn btn-danger" id="btnReporteCurso">
+                    <i class="bi bi-download"></i> Generar
                   </button>
                 </div>
               </div>
@@ -169,36 +189,44 @@ $rol     = $_SESSION['rol'] ?? '';
           </div>
 
           <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <h5 class="card-title mb-0 text-danger">
-                Listado de cursos
-              </h5>
+            <div class="d-flex justify-content-between align-items-center mb-3">
               <div>
-                <button type="button" class="btn btn-uta btn-sm me-1" id="btnNuevoCurso">
-                  <i class="bi bi-plus-circle"></i> Nuevo Curso
+                <h5 class="card-title mb-1">
+                  <i class="bi bi-book-fill text-danger"></i> Catálogo de Cursos
+                </h5>
+                <p class="text-muted mb-0 small">
+                  <i class="bi bi-info-circle"></i> Selecciona un curso para ver opciones
+                </p>
+              </div>
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-success" id="btnNuevoCurso" title="Crear nuevo curso">
+                  <i class="bi bi-plus-circle-fill"></i> Nuevo
                 </button>
-                <button type="button" class="btn btn-uta btn-sm me-1" id="btnEditarCurso">
+                <button type="button" class="btn btn-primary" id="btnEditarCurso" title="Editar curso">
                   <i class="bi bi-pencil-square"></i> Editar
                 </button>
-                <button type="button" class="btn btn-danger btn-sm" id="btnEliminarCurso">
-                  <i class="bi bi-trash"></i> Eliminar
+                <button type="button" class="btn btn-danger" id="btnEliminarCurso" title="Eliminar curso">
+                  <i class="bi bi-trash-fill"></i> Eliminar
                 </button>
               </div>
             </div>
 
             <div class="table-responsive">
-              <table class="table table-hover align-middle mb-0" id="tablaCursos">
-                <thead>
+              <table class="table table-hover table-striped align-middle mb-0" id="tablaCursos">
+                <thead class="table-dark">
                   <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Fecha Creación</th>
-                    <th scope="col">Total Estudiantes</th>
+                    <th scope="col"><i class="bi bi-hash"></i> ID</th>
+                    <th scope="col"><i class="bi bi-book-half"></i> Nombre</th>
+                    <th scope="col"><i class="bi bi-calendar-event"></i> Fecha Creación</th>
+                    <th scope="col"><i class="bi bi-people"></i> Total Estudiantes</th>
                   </tr>
                 </thead>
                 <tbody>
                 </tbody>
               </table>
+            </div>
+            <div class="mt-2 text-muted small">
+              <i class="bi bi-info-circle-fill"></i> Total de cursos: <span id="totalCursos" class="badge bg-danger">0</span>
             </div>
           </div>
         </div>
@@ -210,59 +238,99 @@ $rol     = $_SESSION['rol'] ?? '';
           <div class="card-header bg-white">
             <div class="row g-3 align-items-end">
               <div class="col-md-12">
-                <label class="form-label mb-1 fw-semibold text-danger">
-                  Seleccionar estudiante
+                <label class="form-label mb-2 fw-bold">
+                  <i class="bi bi-person-check text-danger"></i> Seleccionar Estudiante
                 </label>
-                <select id="comboEstudiante" class="form-select">
-                  <option value="">Seleccione un estudiante...</option>
-                </select>
+                <div class="input-group input-group-lg">
+                  <span class="input-group-text bg-light">
+                    <i class="bi bi-mortarboard"></i>
+                  </span>
+                  <select id="comboEstudiante" class="form-select">
+                    <option value="">-- Seleccione un estudiante para gestionar inscripciones --</option>
+                  </select>
+                </div>
+                <div class="form-text text-muted">
+                  <i class="bi bi-info-circle"></i> Selecciona un estudiante para ver sus cursos inscritos y disponibles
+                </div>
               </div>
             </div>
           </div>
 
           <div class="card-body">
-            <div class="row">
+            <div class="row g-4">
               <!-- Cursos Inscritos -->
               <div class="col-md-6">
-                <h5 class="card-title mb-2 text-danger">
-                  Cursos Inscritos
-                </h5>
-                <div class="table-responsive">
-                  <table class="table table-sm table-hover align-middle mb-2" id="tablaInscritos">
-                    <thead>
-                      <tr>
-                        <th scope="col">Curso</th>
-                        <th scope="col">Fecha</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                  </table>
+                <div class="card border-success h-100">
+                  <div class="card-header bg-success text-white">
+                    <h5 class="card-title mb-0">
+                      <i class="bi bi-check-circle-fill"></i> Cursos Inscritos
+                    </h5>
+                  </div>
+                  <div class="card-body">
+                    <p class="text-muted small mb-3">
+                      <i class="bi bi-info-circle"></i> Selecciona un curso inscrito para desinscribir
+                    </p>
+                    <div class="table-responsive" style="max-height: 300px; overflow-y: auto;">
+                      <table class="table table-hover table-sm align-middle mb-0" id="tablaInscritos">
+                        <thead class="table-success sticky-top">
+                          <tr>
+                            <th scope="col"><i class="bi bi-book"></i> Curso</th>
+                            <th scope="col"><i class="bi bi-calendar"></i> Fecha</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td colspan="2" class="text-center text-muted">
+                              <i class="bi bi-inbox"></i> Selecciona un estudiante
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="card-footer bg-white border-top">
+                    <button type="button" class="btn btn-danger w-100" id="btnDesinscribir">
+                      <i class="bi bi-dash-circle-fill"></i> Desinscribir del Curso Seleccionado
+                    </button>
+                  </div>
                 </div>
-                <button type="button" class="btn btn-danger btn-sm" id="btnDesinscribir">
-                  <i class="bi bi-x-circle"></i> Desinscribir
-                </button>
               </div>
 
               <!-- Cursos Disponibles -->
               <div class="col-md-6">
-                <h5 class="card-title mb-2 text-danger">
-                  Cursos Disponibles
-                </h5>
-                <div class="table-responsive">
-                  <table class="table table-sm table-hover align-middle mb-2" id="tablaDisponibles">
-                    <thead>
-                      <tr>
-                        <th scope="col">Curso</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                  </table>
+                <div class="card border-primary h-100">
+                  <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">
+                      <i class="bi bi-bookmark-plus-fill"></i> Cursos Disponibles
+                    </h5>
+                  </div>
+                  <div class="card-body">
+                    <p class="text-muted small mb-3">
+                      <i class="bi bi-info-circle"></i> Selecciona un curso disponible para inscribir
+                    </p>
+                    <div class="table-responsive" style="max-height: 300px; overflow-y: auto;">
+                      <table class="table table-hover table-sm align-middle mb-0" id="tablaDisponibles">
+                        <thead class="table-primary sticky-top">
+                          <tr>
+                            <th scope="col"><i class="bi bi-book-half"></i> Curso Disponible</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="text-center text-muted">
+                              <i class="bi bi-inbox"></i> Selecciona un estudiante
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="card-footer bg-white border-top">
+                    <button type="button" class="btn btn-success w-100" id="btnInscribir">
+                      <i class="bi bi-plus-circle-fill"></i> Inscribir en Curso Seleccionado
+                    </button>
+                  </div>
                 </div>
-                <button type="button" class="btn btn-uta btn-sm" id="btnInscribir">
-                  <i class="bi bi-check-circle"></i> Inscribir
-                </button>
               </div>
             </div>
           </div>
@@ -273,10 +341,12 @@ $rol     = $_SESSION['rol'] ?? '';
 
   <!-- Modal Usuario -->
   <div class="modal fade" id="modalUsuario" tabindex="-1" aria-labelledby="modalUsuarioLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header bg-danger text-white">
-          <h5 class="modal-title" id="modalUsuarioLabel">Nuevo Usuario</h5>
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content border-0 shadow-lg">
+        <div class="modal-header text-white" style="background: linear-gradient(135deg, #a50000 0%, #7a0000 100%);">
+          <h5 class="modal-title" id="modalUsuarioLabel">
+            <i class="bi bi-person-plus-fill"></i> Nuevo Estudiante
+          </h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">
@@ -284,43 +354,70 @@ $rol     = $_SESSION['rol'] ?? '';
             <input type="hidden" id="modo" value="nuevo">
             <input type="hidden" id="cedulaVieja">
 
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="cedula" class="form-label fw-bold">
+                  <i class="bi bi-card-text text-danger"></i> Cédula
+                </label>
+                <input type="text" class="form-control form-control-lg" id="cedula" name="cedula" placeholder="Ej: 1234567890" required>
+              </div>
+              <div class="col-md-6">
+                <label for="telefono" class="form-label fw-bold">
+                  <i class="bi bi-telephone text-danger"></i> Teléfono
+                </label>
+                <input type="text" class="form-control form-control-lg" id="telefono" name="telefono" placeholder="Ej: 0987654321" required>
+              </div>
+              <div class="col-md-6">
+                <label for="nombre" class="form-label fw-bold">
+                  <i class="bi bi-person text-danger"></i> Nombre
+                </label>
+                <input type="text" class="form-control form-control-lg" id="nombre" name="nombre" placeholder="Ingrese el nombre" required>
+              </div>
+              <div class="col-md-6">
+                <label for="apellido" class="form-label fw-bold">
+                  <i class="bi bi-person-badge text-danger"></i> Apellido
+                </label>
+                <input type="text" class="form-control form-control-lg" id="apellido" name="apellido" placeholder="Ingrese el apellido" required>
+              </div>
+              <div class="col-md-12">
+                <label for="direccion" class="form-label fw-bold">
+                  <i class="bi bi-geo-alt text-danger"></i> Dirección
+  <!-- Modal Curso -->
+  <div class="modal fade" id="modalCurso" tabindex="-1" aria-labelledby="modalCursoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg">
+        <div class="modal-header text-white" style="background: linear-gradient(135deg, #a50000 0%, #7a0000 100%);">
+          <h5 class="modal-title" id="modalCursoLabel">
+            <i class="bi bi-book-fill"></i> Nuevo Curso
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <form id="formCurso">
+            <input type="hidden" id="modoCurso" value="nuevo">
+            <input type="hidden" id="idCurso">
             <div class="mb-3">
-              <label for="cedula" class="form-label">Cédula</label>
-              <input type="text" class="form-control" id="cedula" name="cedula" required>
-            </div>
-            <div class="mb-3">
-              <label for="nombre" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="nombre" name="nombre" required>
-            </div>
-            <div class="mb-3">
-              <label for="apellido" class="form-label">Apellido</label>
-              <input type="text" class="form-control" id="apellido" name="apellido" required>
-            </div>
-            <div class="mb-3">
-              <label for="direccion" class="form-label">Dirección</label>
-              <input type="text" class="form-control" id="direccion" name="direccion" required>
-            </div>
-            <div class="mb-3">
-              <label for="telefono" class="form-label">Teléfono</label>
-              <input type="text" class="form-control" id="telefono" name="telefono" required>
+              <label for="nombreCurso" class="form-label fw-bold">
+                <i class="bi bi-book-half text-danger"></i> Nombre del Curso
+              </label>
+              <input type="text" class="form-control form-control-lg" id="nombreCurso" name="nombre" placeholder="Ej: Programación Web" required>
+              <div class="form-text">
+                <i class="bi bi-info-circle"></i> Ingrese un nombre descriptivo para el curso
+              </div>
             </div>
           </form>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-uta" id="btnGuardarUsuario">Guardar</button>
+        <div class="modal-footer bg-light">
+          <button type="button" class="btn btn-secondary btn-lg" data-bs-dismiss="modal">
+            <i class="bi bi-x-circle"></i> Cancelar
+          </button>
+          <button type="button" class="btn btn-uta btn-lg" id="btnGuardarCurso">
+            <i class="bi bi-save"></i> Guardar Curso
+          </button>
         </div>
       </div>
     </div>
-  </div>
-
-  <!-- Modal Curso -->
-  <div class="modal fade" id="modalCurso" tabindex="-1" aria-labelledby="modalCursoLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header bg-danger text-white">
-          <h5 class="modal-title" id="modalCursoLabel">Nuevo Curso</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+  </div>  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">
           <form id="formCurso">
@@ -673,6 +770,9 @@ $rol     = $_SESSION['rol'] ?? '';
         tbody.empty();
         estudianteSeleccionado = null;
 
+        // Actualizar badge de total
+        $('#totalEstudiantes').text(data.rows.length);
+
         data.rows.forEach(function (est) {
           const tr = $('<tr></tr>');
           tr.append('<td>' + est.cedula + '</td>');
@@ -715,6 +815,9 @@ $rol     = $_SESSION['rol'] ?? '';
         const tbody = $('#tablaCursos tbody');
         tbody.empty();
         cursoSeleccionado = null;
+
+        // Actualizar badge de total
+        $('#totalCursos').text(data.rows.length);
 
         console.log('Número de cursos recibidos:', data.rows.length);
 

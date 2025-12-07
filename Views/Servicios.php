@@ -150,7 +150,7 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
             <div style="margin-bottom:15px;padding:12px;background:#fafafa;border-radius:8px;border:1px solid #e0e0e0;">
               <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;">
                 <div style="flex:1;min-width:250px;">
-                  <label style="display:block;margin-bottom:4px;font-size:0.85rem;font-weight:600;color:#666;">🔍 Búsqueda en tiempo real</label>
+                  <label style="display:block;margin-bottom:4px;font-size:0.85rem;font-weight:600;color:#666;">🔍 Búsqueda de cursos</label>
                   <input id="txtBuscarCurso" class="easyui-textbox" prompt="Escribe para filtrar cursos..." style="width:100%;max-width:400px;">
                 </div>
                 <div style="flex:1;min-width:250px;">
