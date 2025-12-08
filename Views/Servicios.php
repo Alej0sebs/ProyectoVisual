@@ -82,15 +82,12 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
       </div>
 
       <div class="panel">
-        <!-- Pestañas de navegación -->
         <div class="easyui-tabs" style="height:550px" data-options="tabPosition:'top',plain:true,narrow:true">
           
           <!-- PESTAÑA 1: ESTUDIANTES -->
           <div title="📚 Estudiantes" style="padding:15px">
-            <!-- Controles superiores -->
             <div style="margin-bottom:15px;padding:12px;background:#fafafa;border-radius:8px;border:1px solid #e0e0e0;">
               <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;">
-                <!-- Búsqueda -->
                 <div style="flex:1;min-width:250px;">
                   <label style="display:block;margin-bottom:4px;font-size:0.85rem;font-weight:600;color:#666;">Búsqueda rápida</label>
                   <div style="display:flex;gap:5px;">
@@ -100,7 +97,6 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
                   </div>
                 </div>
 
-                <!-- Reportes -->
                 <div style="flex:1;min-width:300px;">
                   <label style="display:block;margin-bottom:4px;font-size:0.85rem;font-weight:600;color:#666;">Reportes</label>
                   <div style="display:flex;gap:5px;">
@@ -130,7 +126,7 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
               </thead>
             </table>
 
-            <?php if ($rol === 'admin'): ?>
+            <?php if ($rol === 'secretaria'): ?>
               <div id="toolbar" style="padding:8px 0 0;">
                 <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="false" onclick="newUser()">Nuevo</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="false" onclick="editUser()">Editar</a>
@@ -146,7 +142,6 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
               <p style="margin:0;color:#666;font-size:0.85rem;">Administre los cursos disponibles en el sistema</p>
             </div>
 
-            <!-- Búsqueda de cursos y reportes -->
             <div style="margin-bottom:15px;padding:12px;background:#fafafa;border-radius:8px;border:1px solid #e0e0e0;">
               <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;">
                 <div style="flex:1;min-width:250px;">
@@ -180,7 +175,7 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
               </thead>
             </table>
 
-            <?php if ($rol === 'admin'): ?>
+            <?php if ($rol === 'secretaria'): ?>
               <div id="toolbarCursos" style="padding:8px 0 0;">
                 <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="false" onclick="newCurso()">Nuevo Curso</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="false" onclick="editCurso()">Editar</a>
@@ -204,19 +199,15 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
 
             <div id="inscripcionesContainer" style="display:none;">
               <div style="display:flex;gap:15px;flex-wrap:wrap;">
-                <!-- Cursos disponibles -->
                 <div style="flex:1;min-width:300px;">
                   <h4 style="color:var(--rojo-uta);margin:0 0 10px 0;font-size:1rem;font-weight:600;">📚 Cursos Disponibles</h4>
                   <div id="cursosDisponibles" style="max-height:280px;overflow-y:auto;border:1px solid #ddd;border-radius:8px;padding:10px;background:#fff;">
-                    <!-- Se llenará dinámicamente -->
                   </div>
                 </div>
 
-                <!-- Cursos inscritos -->
                 <div style="flex:1;min-width:300px;">
                   <h4 style="color:var(--rojo-uta);margin:0 0 10px 0;font-size:1rem;font-weight:600;">✅ Cursos Inscritos</h4>
                   <div id="cursosInscritos" style="max-height:280px;overflow-y:auto;border:1px solid #ddd;border-radius:8px;padding:10px;background:#fff;">
-                    <!-- Se llenará dinámicamente -->
                   </div>
                 </div>
               </div>
@@ -227,7 +218,6 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
       </div>
     </div>
 
-    <!-- Dialog para Estudiantes -->
     <div id="dlg" class="easyui-dialog" style="width:400px"
       data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
       <form id="fm" method="post" novalidate style="margin:0;padding:20px 50px">
@@ -257,7 +247,6 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
         onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancelar</a>
     </div>
 
-    <!-- Dialog para Cursos -->
     <div id="dlgCurso" class="easyui-dialog" style="width:400px"
       data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons-curso'">
       <form id="fmCurso" method="post" novalidate style="margin:0;padding:20px 50px">
@@ -278,6 +267,9 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
 
   <?php endif; ?>
 
+  <script type="text/javascript">
+    const ROL = '<?php echo htmlspecialchars($rol ?? "", ENT_QUOTES, "UTF-8"); ?>';
+  </script>
   <script type="text/javascript" src="js/servicios.js"></script>
 
   <footer>

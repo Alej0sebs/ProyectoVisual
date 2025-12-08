@@ -10,7 +10,6 @@ var estudianteSeleccionadoId = null;
 
 // ========== INICIALIZACIÓN ==========
 $(document).ready(function() {
-  // Inicializar el combobox de estudiantes
   $('#comboEstudiantes').combobox({
     url: 'Models/get_users.php',
     method: 'post',
@@ -29,7 +28,6 @@ $(document).ready(function() {
     }
   });
 
-  // Búsqueda en tiempo real para cursos
   var timeoutBusqueda;
   $('#txtBuscarCurso').textbox({
     onChange: function(value) {
@@ -41,16 +39,13 @@ $(document).ready(function() {
         } else {
           $('#dgCursos').datagrid('load', { nombre: nombre });
         }
-      }, 300); // Espera 300ms después de que el usuario deje de escribir
+      }, 300);
     }
   });
 });
 
 // ========== FUNCIONES PARA ESTUDIANTES ==========
 
-/**
- * Busca estudiantes por cédula
- */
 function buscarCedula(){
   var ced = $('#txtBuscarCedula').textbox('getValue').trim();
   if(ced === ''){
@@ -60,17 +55,11 @@ function buscarCedula(){
   $('#dg').datagrid('load',{ cedula: ced });
 }
 
-/**
- * Recarga la tabla de estudiantes sin filtros
- */
 function recargarTabla(){
   $('#txtBuscarCedula').textbox('setValue','');
   $('#dg').datagrid('load',{});
 }
 
-/**
- * Genera reportes de estudiantes
- */
 function verReporte() {
   var reporte = $('#comboReportes').combobox('getValue');
   var row = $('#dg').datagrid('getSelected');
@@ -89,19 +78,21 @@ function verReporte() {
   }
 }
 
-/**
- * Abre el diálogo para crear un nuevo estudiante
- */
 function newUser() {
+  if (typeof ROL === 'undefined' || ROL !== 'secretaria') {
+    $.messager.alert('Acceso restringido', 'Solo la secretaria puede registrar estudiantes.');
+    return;
+  }
   $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nuevo Usuario');
   $('#fm').form('clear');
   url = 'Models/save_user.php';
 }
 
-/**
- * Abre el diálogo para editar un estudiante existente
- */
 function editUser() {
+  if (typeof ROL === 'undefined' || ROL !== 'secretaria') {
+    $.messager.alert('Acceso restringido', 'Solo la secretaria puede editar estudiantes.');
+    return;
+  }
   var row = $('#dg').datagrid('getSelected');
   if (row) {
     $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar Usuario');
@@ -110,10 +101,11 @@ function editUser() {
   }
 }
 
-/**
- * Guarda un estudiante (nuevo o editado)
- */
 function saveUser() {
+  if (typeof ROL === 'undefined' || ROL !== 'secretaria') {
+    $.messager.alert('Acceso restringido', 'Solo la secretaria puede guardar cambios de estudiantes.');
+    return;
+  }
   $('#fm').form('submit', {
     url: url,
     iframe: false,
@@ -145,20 +137,19 @@ function saveUser() {
           timeout: 2000
         });
         $('#dlg').dialog('close');
-        // Ir a la primera página y recargar
         $('#dg').datagrid('load', {});
         $('#dg').datagrid('getPager').pagination({pageNumber: 1});
-        // Actualizar combo de estudiantes si está cargado
         $('#comboEstudiantes').combobox('reload');
       }
     }
   });
 }
 
-/**
- * Elimina un estudiante
- */
 function destroyUser() {
+  if (typeof ROL === 'undefined' || ROL !== 'secretaria') {
+    $.messager.alert('Acceso restringido', 'Solo la secretaria puede eliminar estudiantes.');
+    return;
+  }
   var row = $('#dg').datagrid('getSelected');
   if (row) {
     $.messager.confirm('Confirmar', '¿Estás seguro de eliminar este usuario?', function (r) {
@@ -190,20 +181,22 @@ function destroyUser() {
 
 // ========== FUNCIONES PARA CURSOS ==========
 
-/**
- * Abre el diálogo para crear un nuevo curso
- */
 function newCurso() {
+  if (typeof ROL === 'undefined' || ROL !== 'secretaria') {
+    $.messager.alert('Acceso restringido', 'Solo la secretaria puede crear cursos.');
+    return;
+  }
   $('#dlgCurso').dialog('open').dialog('center').dialog('setTitle', 'Nuevo Curso');
   $('#fmCurso').form('clear');
   $('#cursoId').val('');
   urlCurso = 'Models/save_curso.php';
 }
 
-/**
- * Abre el diálogo para editar un curso existente
- */
 function editCurso() {
+  if (typeof ROL === 'undefined' || ROL !== 'secretaria') {
+    $.messager.alert('Acceso restringido', 'Solo la secretaria puede editar cursos.');
+    return;
+  }
   var row = $('#dgCursos').datagrid('getSelected');
   if (row) {
     $('#dlgCurso').dialog('open').dialog('center').dialog('setTitle', 'Editar Curso');
@@ -215,10 +208,11 @@ function editCurso() {
   }
 }
 
-/**
- * Guarda un curso (nuevo o editado)
- */
 function saveCurso() {
+  if (typeof ROL === 'undefined' || ROL !== 'secretaria') {
+    $.messager.alert('Acceso restringido', 'Solo la secretaria puede guardar cambios de cursos.');
+    return;
+  }
   $('#fmCurso').form('submit', {
     url: urlCurso,
     iframe: false,
@@ -255,10 +249,11 @@ function saveCurso() {
   });
 }
 
-/**
- * Elimina un curso
- */
 function destroyCurso() {
+  if (typeof ROL === 'undefined' || ROL !== 'secretaria') {
+    $.messager.alert('Acceso restringido', 'Solo la secretaria puede eliminar cursos.');
+    return;
+  }
   var row = $('#dgCursos').datagrid('getSelected');
   if (row) {
     $.messager.confirm('Confirmar', '¿Estás seguro de eliminar este curso? Se eliminarán todas las inscripciones asociadas.', function (r) {
@@ -294,9 +289,6 @@ function destroyCurso() {
   }
 }
 
-/**
- * Genera reportes de cursos
- */
 function verReporteCurso() {
   var reporte = $('#comboReportesCursos').combobox('getValue');
   var row = $('#dgCursos').datagrid('getSelected');
@@ -315,19 +307,13 @@ function verReporteCurso() {
 
 // ========== FUNCIONES PARA INSCRIPCIONES ==========
 
-/**
- * Carga los cursos de un estudiante (inscritos y disponibles)
- * @param {number} estudianteId - ID del estudiante
- */
 function cargarCursosEstudiante(estudianteId) {
   estudianteSeleccionadoId = estudianteId;
   $('#inscripcionesContainer').show();
 
-  // Mostrar loading
   $('#cursosDisponibles').html('<p style="text-align:center;padding:20px;">Cargando cursos...</p>');
   $('#cursosInscritos').html('<p style="text-align:center;padding:20px;">Cargando cursos...</p>');
 
-  // Cargar cursos inscritos y disponibles
   $.post('Models/get_inscripciones.php', { estudiante_id: estudianteId }, function(data) {
     if(data && data.success) {
       mostrarCursosDisponibles(data.disponibles || []);
@@ -337,17 +323,13 @@ function cargarCursosEstudiante(estudianteId) {
       $('#cursosDisponibles').html('<p style="color:red;text-align:center;padding:20px;">Error al cargar cursos</p>');
       $('#cursosInscritos').html('<p style="color:red;text-align:center;padding:20px;">Error al cargar cursos</p>');
     }
-  }, 'json').fail(function(jqXHR, textStatus, errorThrown) {
+  }, 'json').fail(function(jqXHR, textStatus) {
     $.messager.alert('Error', 'Error de conexión: ' + textStatus);
     $('#cursosDisponibles').html('<p style="color:red;text-align:center;padding:20px;">Error de conexión</p>');
     $('#cursosInscritos').html('<p style="color:red;text-align:center;padding:20px;">Error de conexión</p>');
   });
 }
 
-/**
- * Muestra la lista de cursos disponibles para inscribir
- * @param {Array} cursos - Array de cursos disponibles
- */
 function mostrarCursosDisponibles(cursos) {
   var html = '';
   if(cursos.length === 0) {
@@ -356,7 +338,9 @@ function mostrarCursosDisponibles(cursos) {
     cursos.forEach(function(curso) {
       html += '<div style="padding:10px;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items:center;">';
       html += '<span>' + curso.nombre + '</span>';
-      html += '<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="inscribirCurso(' + curso.id + ')">Inscribir</a>';
+      if (typeof ROL !== 'undefined' && ROL === 'secretaria') {
+        html += '<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="inscribirCurso(' + curso.id + ')">Inscribir</a>';
+      }
       html += '</div>';
     });
   }
@@ -364,10 +348,6 @@ function mostrarCursosDisponibles(cursos) {
   $.parser.parse($('#cursosDisponibles'));
 }
 
-/**
- * Muestra la lista de cursos en los que el estudiante está inscrito
- * @param {Array} cursos - Array de cursos inscritos
- */
 function mostrarCursosInscritos(cursos) {
   var html = '';
   if(cursos.length === 0) {
@@ -379,7 +359,9 @@ function mostrarCursosInscritos(cursos) {
       html += '<span style="font-weight:600;">' + curso.nombre + '</span><br>';
       html += '<small style="color:#666;">Inscrito: ' + curso.fecha_inscripcion + '</small>';
       html += '</div>';
-      html += '<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" onclick="desinscribirCurso(' + curso.id + ')">Desinscribir</a>';
+      if (typeof ROL !== 'undefined' && ROL === 'secretaria') {
+        html += '<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" onclick="desinscribirCurso(' + curso.id + ')">Desinscribir</a>';
+      }
       html += '</div>';
     });
   }
@@ -387,11 +369,12 @@ function mostrarCursosInscritos(cursos) {
   $.parser.parse($('#cursosInscritos'));
 }
 
-/**
- * Inscribe a un estudiante en un curso
- * @param {number} cursoId - ID del curso
- */
 function inscribirCurso(cursoId) {
+  if (typeof ROL === 'undefined' || ROL !== 'secretaria') {
+    $.messager.alert('Acceso restringido', 'Solo la secretaria puede inscribir estudiantes en cursos.');
+    return;
+  }
+
   if(!estudianteSeleccionadoId) {
     $.messager.alert('Error', 'No hay estudiante seleccionado.');
     return;
@@ -411,18 +394,19 @@ function inscribirCurso(cursoId) {
     if (data && data.success) {
       $.messager.show({ title: 'Éxito', msg: 'Estudiante inscrito correctamente.' });
       cargarCursosEstudiante(estudianteSeleccionadoId);
-      $('#dgCursos').datagrid('reload'); // Actualizar contador de estudiantes
+      $('#dgCursos').datagrid('reload');
     } else {
       $.messager.show({ title: 'Error', msg: data.errorMsg || 'No se pudo inscribir.' });
     }
   }, 'json');
 }
 
-/**
- * Desinscribe a un estudiante de un curso
- * @param {number} cursoId - ID del curso
- */
 function desinscribirCurso(cursoId) {
+  if (typeof ROL === 'undefined' || ROL !== 'secretaria') {
+    $.messager.alert('Acceso restringido', 'Solo la secretaria puede desinscribir estudiantes.');
+    return;
+  }
+
   if(!estudianteSeleccionadoId) {
     $.messager.alert('Error', 'No hay estudiante seleccionado.');
     return;
@@ -444,7 +428,7 @@ function desinscribirCurso(cursoId) {
         if (data && data.success) {
           $.messager.show({ title: 'Éxito', msg: 'Estudiante desinscrito correctamente.' });
           cargarCursosEstudiante(estudianteSeleccionadoId);
-          $('#dgCursos').datagrid('reload'); // Actualizar contador de estudiantes
+          $('#dgCursos').datagrid('reload');
         } else {
           $.messager.show({ title: 'Error', msg: data.errorMsg || 'No se pudo desinscribir.' });
         }

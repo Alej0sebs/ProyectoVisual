@@ -120,7 +120,7 @@ $rol     = $_SESSION['rol'] ?? '';
                 <i class="bi bi-info-circle"></i> Haz clic en una fila para seleccionar un estudiante
               </p>
             </div>
-            <div class="btn-group" role="group">
+            <div class="btn-group <?php echo $rol !== 'secretaria' ? 'd-none' : ''; ?>" role="group">
               <button type="button" class="btn btn-success" id="btnNuevo" title="Agregar nuevo estudiante">
                 <i class="bi bi-plus-circle-fill"></i> Nuevo
               </button>
@@ -198,7 +198,7 @@ $rol     = $_SESSION['rol'] ?? '';
                   <i class="bi bi-info-circle"></i> Selecciona un curso para ver opciones
                 </p>
               </div>
-              <div class="btn-group" role="group">
+              <div class="btn-group <?php echo $rol !== 'secretaria' ? 'd-none' : ''; ?>" role="group">
                 <button type="button" class="btn btn-success" id="btnNuevoCurso" title="Crear nuevo curso">
                   <i class="bi bi-plus-circle-fill"></i> Nuevo
                 </button>
@@ -289,8 +289,8 @@ $rol     = $_SESSION['rol'] ?? '';
                     </div>
                   </div>
                   <div class="card-footer bg-white border-top">
-                    <button type="button" class="btn btn-danger w-100" id="btnDesinscribir">
-                      <i class="bi bi-dash-circle-fill"></i> Desinscribir del Curso Seleccionado
+                  <button type="button" class="btn btn-danger w-100 <?php echo $rol !== 'secretaria' ? 'd-none' : ''; ?>" id="btnDesinscribir">
+                  <i class="bi bi-dash-circle-fill"></i> Desinscribir del Curso Seleccionado
                     </button>
                   </div>
                 </div>
@@ -326,7 +326,7 @@ $rol     = $_SESSION['rol'] ?? '';
                     </div>
                   </div>
                   <div class="card-footer bg-white border-top">
-                    <button type="button" class="btn btn-success w-100" id="btnInscribir">
+                    <button type="button" class="btn btn-success w-100 <?php echo $rol !== 'secretaria' ? 'd-none' : ''; ?>" id="btnInscribir">
                       <i class="bi bi-plus-circle-fill"></i> Inscribir en Curso Seleccionado
                     </button>
                   </div>

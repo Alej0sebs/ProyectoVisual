@@ -19,10 +19,12 @@ $(document).ready(function () {
   modalCurso = new bootstrap.Modal(document.getElementById('modalCurso'));
 
   // Ocultar botones de administración si no es admin
-  if (window.ROL !== 'admin') {
-    $('#btnNuevo, #btnEditar, #btnEliminar').hide();
-    $('#btnNuevoCurso, #btnEditarCurso, #btnEliminarCurso').hide();
-  }
+  // La secretaria tiene todo el CRUD; el admin solo consulta y reportes
+if (window.ROL !== 'secretaria') {
+  $('#btnNuevo, #btnEditar, #btnEliminar').hide();
+  $('#btnNuevoCurso, #btnEditarCurso, #btnEliminarCurso').hide();
+  $('#btnInscribir, #btnDesinscribir').hide();
+}
 
   // Cargar datos iniciales
   cargarEstudiantes();
